@@ -1,0 +1,421 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+:root {
+  --primary-color: #17202a;
+  --secondery-color: #273746;
+  --light-gray-color: #ddd;
+  --white-color: #fff;
+  --green-color: #28b463;
+  --red-color: rgb(230, 0, 18);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.label {
+  background: var(--secondery-color);
+  color: var(--light-gray-color);
+  padding: 0.5rem;
+  border-left: 7px var(--red-color) solid;
+  margin: 2rem auto;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* ================menu starts====================*/
+.menus {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  padding: 1rem 0;
+}
+
+nav {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h2 {
+  font-size: 3rem;
+  color: var(--white-color);
+}
+
+.logo i {
+  color: var(--red-color);
+  font-size: 5rem;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+nav ul a {
+  color: var(--light-gray-color);
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 2px;
+  font-size: 1.1rem;
+}
+
+/* Search bar */
+
+#form .searchbar {
+  width: 650px;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  padding: 0.8rem 1rem;
+  font-family: inherit;
+  background: var(--light-gray-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchbar input {
+  margin-left: 1rem;
+  outline: none;
+  border: none;
+  font-family: inherit;
+  background: var(--light-gray-color);
+}
+
+.searchbar i {
+  color: var(--green-color);
+  font-size: 1rem;
+}
+
+.searchbar button {
+  outline: none;
+  border: none;
+  background: var(--light-gray-color);
+  cursor: pointer;
+}
+
+.searchbar button:hover {
+  outline-color: rgba(0, 0, 0, 0.06);
+  outline-width: 8px;
+  outline-style: solid;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+/* favorite button*/
+
+.favorite,
+.get-favorite {
+  background: rgba(239, 240, 274, 0.16);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--white-color);
+  padding: 12px;
+  margin: 1.5rem;
+  box-shadow: 0 0 10px var(--secondery-color);
+}
+
+/* .favorite i,
+.get-favorite i {
+  font-size: 1.1rem;
+  color: var(--light-gray-color);
+} */
+
+/* ================menu ends====================*/
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-position: center center;
+  background-size: cover;
+  transition: all 0.5s ease-in;
+}
+
+.menus.sticky {
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--white-color);
+  z-index: 100;
+}
+
+body {
+  height: 100vh;
+  font-family: "poppins", sans-serif;
+  background: var(--primary-color);
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.slider-container {
+  display: flex;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) 0 3px 6px rgba(0, 0, 0, 0.23);
+  height: 70vh;
+  width: 70vw;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.slide {
+  opacity: 0;
+  transform: translateX(-25%);
+  height: 100vh;
+  width: 100vw;
+  background-position: center center;
+  background-size: cover;
+  position: absolute;
+  top: -15vh;
+  left: -15vw;
+  z-index: 1;
+  transition: all 1s ease-in;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(-0%);
+}
+
+.arrow {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.23);
+  color: #fff;
+  padding: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 5;
+}
+
+.arrow i {
+  font-size: 1.5rem;
+}
+
+.arrow:focus {
+  outline: none;
+}
+
+.left-arrow {
+  left: 0px;
+}
+
+.right-arrow {
+  right: 0px;
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+.slider-content {
+  opacity: 0;
+  position: relative;
+  top: 67%;
+  left: 65%;
+  transform: translate(-0%, -50%);
+  padding: 4rem;
+  background-color: rgba(0, 0, 0, 0.23);
+  transition: all 0.7s ease-in;
+}
+
+.slider-content.active {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+.slider-content h2 {
+  color: var(--white-color);
+  font-size: 3rem;
+}
+
+.slider-content h2 > span {
+  color: var(--white-color);
+  font-size: 2rem;
+}
+
+.slider-content .games-short-details {
+  color: var(--white-color);
+  padding: 1rem;
+  width: 60%;
+}
+
+.slider-content .g-details {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  margin-left: 1rem;
+}
+
+.g-details .genre {
+  color: var(--white-color);
+  background: #eb984e;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+
+.g-details .year {
+  color: var(--white-color);
+  background: var(--green-color);
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+
+.slider-content button {
+  padding: 0.7rem 1rem;
+  outline: none;
+  border: none;
+  margin: 2rem 1rem;
+  background: var(--red-color);
+  color: var(--white-color);
+  font-family: inherit;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.slider-content button i {
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+
+.games-details {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+  row-gap: 2rem;
+}
+
+.games {
+  width: 325px;
+  height: 500px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  transition: all 0.4s ease-in;
+  background: var(--secondery-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.games .favorite {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.games img {
+  display: block;
+  width: 325px;
+  height: 400px;
+}
+.game-title {
+  font-size: 1.2rem;
+  font-family: inherit;
+  margin: 1rem 1rem;
+  color: var(--white-color);
+}
+
+.short-des {
+  display: flex;
+  justify-content: space-between;
+  background: var(--red-color);
+  color: var(--white-color);
+  margin-top: 1rem;
+  font-weight: 600;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: translateY(80%);
+}
+
+.short-des p {
+  padding: 0.5rem 0.5rem;
+}
+
+.games:hover .short-des {
+  transform: translateY(0%);
+  transition: all 0.5s ease-in;
+}
+
+/* pagination */
+
+.pagination {
+  padding: 4rem 0;
+}
+
+.pagination ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.pagination ul li {
+  margin: 0 0 0.7rem;
+  box-shadow: 0 0 10px var(--secondery-color);
+  color: var(--green-color);
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in;
+}
+
+.pagination ul li.active {
+  box-shadow: 0 0 10px var(--red-color);
+  color: var(--green-color);
+}
+
+.pagination ul li:nth-child(1) {
+  margin-left: none;
+}
+
+.pagination ul li:active {
+  transform: scale(1.5);
+}
+
+a {
+  text-decoration: none;
+}
+
+.no-favorite {
+  color: var(--white-color);
+  font-size: 3rem;
+  padding: 20px;
+}
