@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import GameList from "../components/GameList";
-import { getFavorites } from "../utils/getfav";
+import { getFavorites, toggleFavorite } from "../utils/getfav";
 import Navbar from "../components/Navbar";
 import Carousel from "../components/Carousel";
 
@@ -18,6 +18,11 @@ const Favorites = ({ onSearch }) => {
     navigate("/", { state: { searchTerm: term } });
   };
 
+  const handleFavoriteToggle = (game) => {
+    toggleFavorite(game);
+    setFavorites(getFavorites());
+  };
+
   return (
     <div className="container">
       <Navbar onSearch={handleSearch} />
@@ -25,7 +30,7 @@ const Favorites = ({ onSearch }) => {
       <GameList
         labelText="Your Favorites"
         games={favorites}
-        onFavoriteToggle={() => {}}
+        onFavoriteToggle={handleFavoriteToggle}
       />
     </div>
   );

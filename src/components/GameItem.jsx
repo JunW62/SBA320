@@ -1,7 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { toggleFavorite, isFavorite } from "../utils/getfav";
 
 const GameItem = ({ game, onFavoriteToggle }) => {
+  if (!game || !game.id) {
+    console.warn("Invalid game object:", game);
+    return null;
+  }
+
   const { id, name, release_dates, genres, cover } = game;
   const isFav = isFavorite(id);
   const favoriteClass = isFav ? "fa-solid" : "fa-regular";
@@ -16,8 +22,12 @@ const GameItem = ({ game, onFavoriteToggle }) => {
     : "No genre info";
 
   const handleFavoriteClick = () => {
-    toggleFavorite(game);
-    onFavoriteToggle();
+    if (game && game.id) {
+      toggleFavorite(game);
+      onFavoriteToggle();
+    } else {
+      console.warn("Invalid game object or missing game id:", game);
+    }
   };
 
   return (
@@ -36,6 +46,28 @@ const GameItem = ({ game, onFavoriteToggle }) => {
       </div>
     </div>
   );
+};
+
+// Add prop type validation
+GameItem.propTypes = {
+  game: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    release_dates: PropTypes.arrayOf(
+      PropTypes.shape({
+        y: PropTypes.number,
+      })
+    ),
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+      })
+    ),
+    cover: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+  }).isRequired,
+  onFavoriteToggle: PropTypes.func.isRequired,
 };
 
 export default GameItem;
