@@ -1,55 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { getGames } from "../api/api";
+import React, { useContext } from "react";
+import { CarouselContext } from "../context/CarouselContext";
 
 const Carousel = () => {
-  const [games, setGames] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const gamesData = await getGames();
-        setGames(gamesData || []);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    fetchGames();
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % games.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + games.length) % games.length
-    );
-  };
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const { slides, currentIndex, nextSlide, prevSlide } = useContext(
+    CarouselContext
+  );
 
   return (
-    <div className="slider-container">
-      <div className="carousel-wrapper">
-        <button className="arrow left-arrow" onClick={prevSlide}>
-          <i className="fas fa-arrow-left"></i>
-        </button>
-        {games.length > 0 &&
-          games.map((game, index) => (
+    <header>
+      <div className="slider-container">
+        <div className="carousel-wrapper">
+          <button className="arrow left-arrow" onClick={prevSlide}>
+            <i className="fas fa-arrow-left"></i>
+          </button>
+          {slides.map((slide, index) => (
             <div
-              key={game.id}
+              key={slide.id}
               className={`slide ${index === currentIndex ? "active" : ""}`}
               style={{
-                backgroundImage: `url(${
-                  game.cover
-                    ? game.cover.url.replace("t_thumb", "t_720p")
-                    : "./images/placeholder.jpeg"
-                })`,
+                backgroundImage: `url(${slide.image})`,
               }}
             >
               <div
@@ -57,21 +26,15 @@ const Carousel = () => {
                   index === currentIndex ? "active" : ""
                 }`}
               >
-                <h2 className="games-title">{game.name}</h2>
-                <p className="games-short-details">
-                  {game.summary || "No description available."}
-                </p>
+                <h2 className="games-title">{slide.title}</h2>
+                <p className="games-short-details">{slide.description}</p>
                 <div className="g-details">
-                  <p className="genre">
-                    {game.genres && game.genres.length > 0
-                      ? game.genres.map((genre) => genre.name).join(", ")
-                      : "No genre info"}
-                  </p>
-                  <p className="year">
-                    {game.release_dates && game.release_dates.length > 0
-                      ? game.release_dates[0].y
-                      : "No release date"}
-                  </p>
+                  {slide.genres.map((genre) => (
+                    <p key={genre} className="genre">
+                      {genre}
+                    </p>
+                  ))}
+                  <p className="year">{slide.year}</p>
                 </div>
                 <button className="play-now">
                   <i className="fa-solid fa-gamepad"></i>Play Now
@@ -79,11 +42,12 @@ const Carousel = () => {
               </div>
             </div>
           ))}
-        <button className="arrow right-arrow" onClick={nextSlide}>
-          <i className="fas fa-arrow-right"></i>
-        </button>
+          <button className="arrow right-arrow" onClick={nextSlide}>
+            <i className="fas fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

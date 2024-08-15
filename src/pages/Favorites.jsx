@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { getFavorites, toggleFavorite } from "../utils/getfav";
+import { useNavigate } from "react-router-dom";
 import GameList from "../components/GameList";
+import { getFavorites } from "../utils/getfav";
+import Navbar from "../components/Navbar";
+import Carousel from "../components/Carousel";
 
-const Favorites = ({ searchResults }) => {
-  const [favoriteGames, setFavoriteGames] = useState([]);
+const Favorites = ({ onSearch }) => {
+  const [favorites, setFavorites] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (searchResults.length > 0) {
-      setFavoriteGames(searchResults);
-    } else {
-      setFavoriteGames(getFavorites());
-    }
-  }, [searchResults]);
+    setFavorites(getFavorites());
+  }, []);
 
-  const handleFavoriteToggle = (game) => {
-    toggleFavorite(game);
-    setFavoriteGames(getFavorites());
+  const handleSearch = (term) => {
+    onSearch(term);
+    navigate("/", { state: { searchTerm: term } });
   };
 
   return (
     <div className="container">
-      <h1>Your Favorites</h1>
-      <GameList games={favoriteGames} onFavoriteToggle={handleFavoriteToggle} />
+      <Navbar onSearch={handleSearch} />
+      <Carousel />
+      <GameList
+        labelText="Your Favorites"
+        games={favorites}
+        onFavoriteToggle={() => {}}
+      />
     </div>
   );
 };

@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ onSearch }) => {
-  const [term, setTerm] = useState("");
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearch = (e) => {
     e.preventDefault();
-    if (term) {
-      onSearch(term);
-      setTerm("");
-      navigate("/favorites");
+    if (searchTerm.trim()) {
+      onSearch(searchTerm.trim());
     }
   };
 
   return (
-    <form id="form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSearch} id="form">
       <div className="searchbar">
         <input
           type="text"
+          placeholder="Search Games"
           id="search"
-          placeholder="Search for games..."
-          value={term}
-          onChange={(e) => setTerm(e.target.value)}
+          value={searchTerm}
+          onChange={handleInputChange}
         />
         <button type="submit">
-          <i className="fas fa-search"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
     </form>

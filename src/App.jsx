@@ -1,32 +1,22 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-import Navbar from "./components/Navbar";
-import { getGames } from "./api/api";
+import { CarouselProvider } from "./context/CarouselContext";
 
 const App = () => {
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearch = async (term) => {
-    const results = await getGames(term);
-    setSearchResults(results);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <Router>
-      <Navbar onSearch={handleSearch} />
-      <Routes>
-        <Route
-          path="/"
-          element={<Home setSearchResults={setSearchResults} />}
-        />
-        <Route
-          path="/favorites"
-          element={<Favorites searchResults={searchResults} />}
-        />
-      </Routes>
-    </Router>
+    <CarouselProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home searchTerm={searchTerm} />} />
+          <Route path="/favorites" element={<Favorites />} />
+        </Routes>
+      </Router>
+    </CarouselProvider>
   );
 };
 

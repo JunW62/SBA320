@@ -1,11 +1,11 @@
 import React from "react";
-import { favorites } from "../utils/getfav";
+import { toggleFavorite, isFavorite } from "../utils/getfav";
 
 const GameItem = ({ game, onFavoriteToggle }) => {
   const { id, name, release_dates, genres, cover } = game;
-  const isFavorite = favorites.some((fav) => fav.id === id);
-  const favoriteClass = isFavorite ? "fa-solid" : "fa-regular";
-  const favoriteColor = isFavorite ? "red" : "#ddd";
+  const isFav = isFavorite(id);
+  const favoriteClass = isFav ? "fa-solid" : "fa-regular";
+  const favoriteColor = isFav ? "red" : "#ddd";
   const imageUrl = cover
     ? cover.url.replace("t_thumb", "t_720p")
     : "./images/placeholder.jpeg";
@@ -15,13 +15,18 @@ const GameItem = ({ game, onFavoriteToggle }) => {
     ? genres.map((genre) => genre.name).join(", ")
     : "No genre info";
 
+  const handleFavoriteClick = () => {
+    toggleFavorite(game);
+    onFavoriteToggle();
+  };
+
   return (
     <div className="games" key={id} data-game-id={id}>
       <button
         type="button"
         className={`favorite ${favoriteClass} fa-heart`}
         style={{ color: favoriteColor }}
-        onClick={() => onFavoriteToggle(game)}
+        onClick={handleFavoriteClick}
       ></button>
       <img src={imageUrl} alt={`Cover image for ${name}`} />
       <p className="game-title">{name}</p>
