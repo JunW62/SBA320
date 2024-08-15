@@ -26,7 +26,14 @@ html {
   border-left: 7px var(--red-color) solid;
   margin: 2rem auto;
 }
-
+.label-fav {
+  background: var(--secondery-color);
+  color: var(--light-gray-color);
+  padding: 0.5rem;
+  border-left: 7px var(--red-color) solid;
+  margin: 2rem auto;
+  /* margin-top: 8%; */
+}
 .container {
   max-width: 1440px;
   margin: 0 auto;
@@ -51,7 +58,7 @@ img {
 nav {
   display: flex;
   list-style: none;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -79,9 +86,10 @@ nav ul {
 nav ul a {
   color: var(--light-gray-color);
   text-decoration: none;
-  padding: 0.4rem 1rem;
+  padding: 1rem 1rem;
   border-radius: 2px;
   font-size: 1.1rem;
+  margin-right: 20px;
 }
 
 /* Search bar */
@@ -140,19 +148,14 @@ nav ul a {
   box-shadow: 0 0 10px var(--secondery-color);
 }
 
-/* .favorite i,
-.get-favorite i {
-  font-size: 1.1rem;
-  color: var(--light-gray-color);
-} */
-
 /* ================menu ends====================*/
 
 header {
+  margin-top: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 70vh;
   background-position: center center;
   background-size: cover;
   transition: all 0.5s ease-in;
@@ -171,13 +174,11 @@ body {
 }
 
 header::before {
-  content: "";
   position: absolute;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
 
@@ -197,7 +198,6 @@ header::before {
   height: 100vh;
   width: 100vw;
   background-position: center center;
-  background-size: cover;
   position: absolute;
   top: -15vh;
   left: -15vw;
