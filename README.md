@@ -45,12 +45,7 @@ GOGam is a React-based web application that allows users to search for video gam
    npm install
    ```
 
-3. Start the Express server:
-   ```
-   cd src
-   node server.js
-   ```
-4. Start the React development server:
+3. Start the React development server:
    ```
    npm run dev
    ```
