@@ -4,7 +4,9 @@ export const getGames = async (searchTerm = "") => {
   try {
     const {
       data: response,
-    } = await axios.post("http://localhost:8080/api/games", { searchTerm });
+    } = await axios.post("https://sba320-uy9i.onrender.com/api/games", {
+      searchTerm,
+    });
     return response || [];
   } catch (error) {
     console.error("Error fetching games:", error.message);
